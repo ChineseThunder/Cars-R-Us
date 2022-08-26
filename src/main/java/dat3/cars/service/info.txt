@@ -1,1 +1,3 @@
-Add Service Classes/Interfaces here
+Velkommen til car rus
+
+her vil der blive demostretet hvordan man bruger forskellige værktøjer, lært på 3 semester Datamatiker på KEA.

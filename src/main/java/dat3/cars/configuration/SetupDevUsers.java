@@ -1,5 +1,7 @@
-package dat3.rename_me.configuration;
+package dat3.cars.configuration;
 
+import dat3.cars.entity.Member;
+import dat3.cars.repository.MemberRepository;
 import dat3.security.entity.Role;
 import dat3.security.entity.UserWithRoles;
 import org.springframework.boot.ApplicationArguments;
@@ -11,15 +13,19 @@ import dat3.security.repository.UserWithRolesRepository;
 public class SetupDevUsers implements ApplicationRunner {
 
     UserWithRolesRepository userWithRolesRepository;
+    MemberRepository memberRepository;
     String passwordUsedByAll;
 
-    public SetupDevUsers(UserWithRolesRepository userWithRolesRepository) {
+    public SetupDevUsers(UserWithRolesRepository userWithRolesRepository, MemberRepository memberRepository) {
         this.userWithRolesRepository = userWithRolesRepository;
+        this.memberRepository = memberRepository;
         passwordUsedByAll = "test12";
     }
 
     @Override
     public void run(ApplicationArguments args) {
+        Member m1 = new Member("userxx", passwordUsedByAll, "a@a.d" , "kurt");
+        memberRepository.save(m1);
         setupUserWithRoleUsers();
     }
 
