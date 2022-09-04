@@ -1,67 +1,42 @@
 package dat3.cars.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
+@EqualsAndHashCode  // When performance becomes important, never set like this
 
 @Entity
 public class Car {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    String brand;
-    String model;
-    int pricePrDay;
-    int bestDiscount;
 
-    public Car() {}
+    @Column(length = 50,nullable = false)
+    private String brand;
 
-    public Car(String brand, String model, int pricePrDay, int bestDiscount) {
-        this.brand = brand;
-        this.model = model;
-        this.pricePrDay = pricePrDay;
-        this.bestDiscount = bestDiscount;
-    }
+    @Column(length= 50, nullable = false)
+    private String model;
 
-    public int getId() {
-        return id;
-    }
+    double pricePrDay;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    //Best discount price (percent for pricePrDay) an admin can offer
+    double bestDiscount;
 
-    public String getBrand() {
-        return brand;
-    }
+    @CreationTimestamp
+    LocalDateTime created;
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+    @UpdateTimestamp
+    LocalDateTime edited;
 
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getPricePrDay() {
-        return pricePrDay;
-    }
-
-    public void setPricePrDay(int pricePrDay) {
-        this.pricePrDay = pricePrDay;
-    }
-
-    public int getBestDiscount() {
-        return bestDiscount;
-    }
-
-    public void setBestDiscount(int bestDiscount) {
-        this.bestDiscount = bestDiscount;
-    }
 }

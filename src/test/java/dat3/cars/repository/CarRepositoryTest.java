@@ -1,7 +1,6 @@
 package dat3.cars.repository;
 
 import dat3.cars.entity.Car;
-import dat3.cars.entity.Member;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,35 +12,32 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarRepositoryTest {
 
     @Autowired
-    CarRepository CarRepository;
+    CarRepository carRepository;
 
-    static int car1;
-    static int car2;
+    static String car1Model;
+    static String car2Model;
+
     @BeforeAll
     public static void setUpData(@Autowired CarRepository carRepository){
-        Car c1 = new Car ( "wv", "turbo", 12, 21);
-        Car c2 = new Car ( "vw", "torbu2", 3214, 124);
+        Car car1 = Car.builder()
+                .brand("Volvo")
+                .model("V70")
+                .pricePrDay(700)
+                .bestDiscount(30.0)
+                .build();
+        Car car2 = Car.builder()
+                .brand("BMW")
+                .model("x5")
+                .pricePrDay(700)
+                .bestDiscount(30.0)
+                .build();
 
-        carRepository.save(c1);
-        carRepository.save(c2);
-        car1 = c1.getId();
-        car2 = c2.getId();
-
+        carRepository.save(car1);
+        car1Model = car1.getModel();
+        carRepository.save(car2);
+        car2Model = car2.getModel();
     }
 
-    @Test
-    public void testFindById(){
-        Car found = CarRepository.findById(car1).get();
-        assertEquals(car1, found.getId());
-        assertEquals("wv", found.getBrand());
-
-    }
-
-    @Test
-    public void testCarByEmail(){
-        Car found = CarRepository.findCarByModel("torbu2");
-        assertEquals(car2, found.getId());
-    }
 
 
 }
